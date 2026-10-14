@@ -1,0 +1,2864 @@
+{
+ "meta": {
+  "revision": 2,
+  "date": "2026-10-09",
+  "source": "Discovery Scope automation assessment, revision 2 (owner-approved scope: 261 in scope, 26 excluded)",
+  "total": 287,
+  "inScope": 261,
+  "excluded": 26
+ },
+ "cases": [
+  {
+   "key": "NJM-154496",
+   "title": "[MSSQL-Disc-WF-0002] Verify Auto-Install Transporter on Cluster Node",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154497",
+   "title": "[MSSQL-Disc-WF-0006] Verify Discovery via UI",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154498",
+   "title": "[MSSQL-Disc-WF-0007] Verify Discovery via API",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154499",
+   "title": "[MSSQL-Disc-WF-0009] Verify Standalone Instance Metadata Discovery",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: OS, instance name, SQL version, database names and count against the host. Not verified (not shown by NBR): database sizes, .mdf/.ldf paths, IP address as a separate field.",
+   "notVerified": "Database sizes, data (.mdf) and log (.ldf) file paths, separate host name vs IP address, IP address, recovery model: none of these is displayed by NBR 11.2.1."
+  },
+  {
+   "key": "NJM-154500",
+   "title": "[MSSQL-Disc-WF-0010] Verify Failover Cluster Metadata Discovery",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154501",
+   "title": "[MSSQL-Disc-WF-0011] Verify Always On AG Metadata Discovery",
+   "area": "Workflow",
+   "scope": "excluded",
+   "exclusionReason": "Needs a multi-replica Always On AG with a listener; the lab AG is a single-replica Basic AG. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-154502",
+   "title": "[MSSQL-Disc-WF-0012] Verify Read-Scale AG Metadata Discovery",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: Read-Scale AG type, AG name, databases and SQL version. Not verified (not shown by NBR): replicas, replica roles, clustering flag.",
+   "notVerified": "Replica list, primary/secondary replicas, the clustering flag (IsClustered = false) and any secondary replica: the UI shows none of them. Replica roles and a replica list are not exposed in the UI and are not verified."
+  },
+  {
+   "key": "NJM-154503",
+   "title": "[MSSQL-Disc-WF-0013] Verify DAG Unsupported Block",
+   "area": "Workflow",
+   "scope": "excluded",
+   "exclusionReason": "Needs a Distributed AG; the lab has none and Basic AGs cannot join one. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-154504",
+   "title": "[MSSQL-Disc-WF-0014] Verify Credential Validation during Discovery",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Not rejected 'immediately': wizard closes, row 'Adding... 0%' then 'Failed'; a Failed item exists until Cancel (step 4 expects no item)"
+  },
+  {
+   "key": "NJM-154505",
+   "title": "[MSSQL-Disc-WF-0016] Verify Backup of SIMPLE Recovery Model",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154506",
+   "title": "[MSSQL-Disc-WF-0017] Verify Backup of FULL Recovery Model",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154507",
+   "title": "[MSSQL-Disc-WF-0018] Verify Backup of BULK-LOGGED Recovery Model",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154508",
+   "title": "[MSSQL-Disc-WF-0021] Verify Duplicate Prevention (Idempotency)",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Steps 4-5 expect re-discovery without error and in-place refresh; Observed: wizard stays open with 'already added ... Duplicate entries are not allowed. (DbDiscoveryException)'"
+  },
+  {
+   "key": "NJM-154509",
+   "title": "[MSSQL-Disc-WF-0022] Verify Host Identity Logic (Positive Match)",
+   "area": "Workflow",
+   "scope": "excluded",
+   "exclusionReason": "Needs a change of the host identity (BIOS id), which requires hypervisor control the lab does not have. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-154510",
+   "title": "[MSSQL-Disc-WF-0022-1] Verify Host Identity Logic (Negative Match)",
+   "area": "Workflow",
+   "scope": "excluded",
+   "exclusionReason": "Same: needs a changed host identity (hypervisor control) and is destructive. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-154511",
+   "title": "[MSSQL-Disc-WF-0025] Verify Inaccessible Item Alert",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154512",
+   "title": "[MSSQL-Disc-WF-0027] Verify Database Identity Logic",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154513",
+   "title": "[MSSQL-Disc-WF-0028] Verify DB Mobility (Chain Preservation)",
+   "area": "Workflow",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154525",
+   "title": "Verify adding SQL Server Instance to Inventory (Ref: MSSQL-Inv-General-0001)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154526",
+   "title": "Verify adding SQL Failover Cluster to Inventory (Ref: MSSQL-Inv-General-0002)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154527",
+   "title": "Verify adding Always On Availability Group to Inventory (Ref: MSSQL-Inv-General-0003)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154528",
+   "title": "Verify adding Read-Scale AG to Inventory (Ref: MSSQL-Inv-General-0004)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154529",
+   "title": "Verify editing SQL Server Instance details (Ref: MSSQL-Inv-General-0001-1)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154530",
+   "title": "Verify child databases are discovered for Standalone Instance (Ref: MSSQL-Inv-General-0005-1)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: tempdb is not listed (case expects every source DB); 'expand node' = item page DB list"
+  },
+  {
+   "key": "NJM-154531",
+   "title": "Verify new databases are detected on update/refresh (Ref: MSSQL-Inv-General-0006-1)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154532",
+   "title": "Verify child databases are removed when parent is removed (Ref: MSSQL-Inv-General-0007-1)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154533",
+   "title": "[MSSQL-Inv-General-0008-TC01] Verify Duplicate Addition Prevention",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154534",
+   "title": "[MSSQL-Inv-General-0008-TC02] Verify Connection Failure Handling",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Wizard closes and a 'Failed' row IS created (case: no item added); error via row menu 'Show error', no pop-up; spec General-0008 is the Edit wizard"
+  },
+  {
+   "key": "NJM-154535",
+   "title": "[MSSQL-Inv-UI-Platform-0001-TC01] Verify Application Option Display & Subtext",
+   "area": "Inventory/Step 1 - Platform",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154536",
+   "title": "[MSSQL-Inv-UI-Platform-0001-TC02] Verify Navigation to Options Step",
+   "area": "Inventory/Step 1 - Platform",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154537",
+   "title": "[MSSQL-Inv-UI-Platform-0001-TC03] Verify Application Option Disabled (Restricted License)",
+   "area": "Inventory/Step 1 - Platform",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "License state",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154538",
+   "title": "[DBM-Inv-UI-Add-Platform-0001] Verify Application Option Display",
+   "area": "Inventory/Step 1 - Platform",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154539",
+   "title": "[DBM-Inv-UI-Add-Platform-0002] Verify Application Subtext",
+   "area": "Inventory/Step 1 - Platform",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154540",
+   "title": "[DBM-Inv-UI-Add-Platform-0003] Verify Option Disabled by License",
+   "area": "Inventory/Step 1 - Platform",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "License state",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154541",
+   "title": "[DBM-Inv-UI-Add-Platform-0004] Verify License Tooltip",
+   "area": "Inventory/Step 1 - Platform",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "License state",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154542",
+   "title": "[DBM-Inv-UI-Add-Platform-0005] Verify Standard Platform Behavior",
+   "area": "Inventory/Step 1 - Platform",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154543",
+   "title": "[DBM-Inv-UI-Add-Platform-0006] Verify Navigation to Options",
+   "area": "Inventory/Step 1 - Platform",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154544",
+   "title": "[DBM-Inv-UI-Add-Options-0001] Verify Step 2 UI Layout",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: all fields, link and buttons present, no overlap or overflow, screenshot compared to the approved baseline of the current UI. Not verified: match to the Figma design.",
+   "notVerified": "That the arrangement matches the specification / Figma and that nothing is \"misaligned\" as a design judgement."
+  },
+  {
+   "key": "NJM-154545",
+   "title": "[DBM-Inv-UI-Add-Options-0002] Verify Display Name Field Existence",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154546",
+   "title": "[DBM-Inv-UI-Add-Options-0003] Verify Display Name Optionality",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154547",
+   "title": "[DBM-Inv-UI-Add-Options-0004] Verify Display Name Unicode Support",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154548",
+   "title": "[DBM-Inv-UI-Add-Options-0005] Verify Display Name Length Limits",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: UI does not block the 26th char: it accepts it and flags the field (hover 'The maximum length for this field is 25'); desc '1-25' conflicts with optional field"
+  },
+  {
+   "key": "NJM-154549",
+   "title": "[DBM-Inv-UI-Add-Options-0006] Verify Display Name Max Length Highlight",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Case expects highlight at exactly max length; UI (and spec) highlight only above 25 (26 chars) with hover 'The maximum length for this field is 25'"
+  },
+  {
+   "key": "NJM-154550",
+   "title": "[DBM-Inv-UI-Add-Options-0007] Verify Display Name Auto-Fill",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Case expects live fill in the wizard field; spec 0007 and Observed UI fill on save (row named after host when Display name empty)"
+  },
+  {
+   "key": "NJM-154551",
+   "title": "[DBM-Inv-UI-Add-Options-0008] Verify Display Name Truncation",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154552",
+   "title": "[DBM-Inv-UI-Add-Options-0009] Verify Display Name Non-Unicode Highlight",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154553",
+   "title": "[DBM-Inv-UI-Add-Options-0010] Verify Type Dropdown Existence",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154554",
+   "title": "[DBM-Inv-UI-Add-Options-0011] Verify Type Dropdown Required",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Type is read-only with first entry preselected and cannot be emptied, so the empty-Type error cannot occur; no red asterisks in UI"
+  },
+  {
+   "key": "NJM-154555",
+   "title": "[DBM-Inv-UI-Add-Options-0012] Verify Type Dropdown List Content",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154556",
+   "title": "[DBM-Inv-UI-Add-Options-0013] Verify Type Dropdown Sorting",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154557",
+   "title": "[DBM-Inv-UI-Add-Options-0014] Verify Type Dropdown Default Selection",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154558",
+   "title": "[DBM-Inv-UI-Add-Options-0015] Verify Dynamic Fields by Type",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154559",
+   "title": "[DBM-Inv-UI-Add-Options-0016] Verify Hostname Field Existence",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154560",
+   "title": "[DBM-Inv-UI-Add-Options-0017] Verify Hostname Field Required",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154561",
+   "title": "[DBM-Inv-UI-Add-Options-0018] Verify Hostname Standard Compliance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154562",
+   "title": "[DBM-Inv-UI-Add-Options-0019] Verify OS Username Field Existence",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154563",
+   "title": "[DBM-Inv-UI-Add-Options-0020] Verify OS Username Behavior",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154564",
+   "title": "[DBM-Inv-UI-Add-Options-0021] Verify OS Password Behavior",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154565",
+   "title": "[DBM-Inv-UI-Add-Options-0022] Verify Manage Credentials Link",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154566",
+   "title": "[DBM-Inv-UI-Add-Options-0023] Verify Link Opens Dialog",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154567",
+   "title": "[DBM-Inv-UI-Add-Options-0024] Verify Credentials Dialog Behavior",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154568",
+   "title": "[DBM-Inv-UI-Add-Options-0025] Verify Finish Button Existence",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154569",
+   "title": "[DBM-Inv-UI-Add-Options-0026] Verify Finish Button Enabled State",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154570",
+   "title": "[DBM-Inv-UI-Add-Options-0027] Verify Finish Closes Wizard (Valid)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154571",
+   "title": "[DBM-Inv-UI-Add-Options-0028] Verify Finish Highlights Errors (Invalid)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154572",
+   "title": "[DBM-Inv-UI-Add-Options-0029] Verify Finish Stays in Wizard (Invalid)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154573",
+   "title": "[DBM-Inv-UI-Add-Options-0030] Verify Finish Initiates Discovery",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154574",
+   "title": "[DBM-Inv-UI-Add-Options-0031] Verify Cancel Button Existence",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154575",
+   "title": "[DBM-Inv-UI-Add-Options-0032] Verify Cancel Button Enabled State",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154576",
+   "title": "[DBM-Inv-UI-Add-Options-0033] Verify Cancel Confirmation Popup",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154577",
+   "title": "[DBM-Inv-UI-Add-Options-0034] Verify Popup Close Action",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154578",
+   "title": "[DBM-Inv-UI-Add-Options-0035] Verify Popup Dismiss Action",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154579",
+   "title": "[MSSQL-Inv-UI-Options-0002-1] Verify Type Dropdown Content",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154580",
+   "title": "[MSSQL-Inv-UI-Options-0002-5] Verify Hostname Tooltip (FCI)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expected text not in case; UI wording differs from spec 0002-5 in places"
+  },
+  {
+   "key": "NJM-154581",
+   "title": "[MSSQL-Inv-UI-Options-0002-6] Verify Hostname Tooltip (AG)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expected text not in case; UI wording differs from spec 0002-6 in places"
+  },
+  {
+   "key": "NJM-154582",
+   "title": "[MSSQL-Inv-UI-Options-0002-7] Verify Hostname Tooltip (clusterless AG)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expected text not in case; UI adds '(clusterless AG)' vs spec 0002-7 wording"
+  },
+  {
+   "key": "NJM-154583",
+   "title": "[MSSQL-Inv-UI-Options-0003] Verify Instance Name Visibility (Instance)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154584",
+   "title": "[MSSQL-Inv-UI-Options-0004] Verify Instance Name Visibility (FCI)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154585",
+   "title": "[MSSQL-Inv-UI-Options-0005] Verify Instance Name Required",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154586",
+   "title": "[MSSQL-Inv-UI-Options-0007] Verify Instance Name Default State",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154587",
+   "title": "[MSSQL-Inv-UI-Options-0009] Verify Instance Name Tooltip (FCI)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expected text not in case (spec 0009 gives it); UI wording may differ"
+  },
+  {
+   "key": "NJM-154588",
+   "title": "[MSSQL-Inv-UI-Options-0010] Verify Instance Name Text Compliance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154589",
+   "title": "[MSSQL-Inv-UI-Options-0012] Verify AG Name Visibility (Always On)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154590",
+   "title": "[MSSQL-Inv-UI-Options-0013] Verify AG Name Visibility (Read-Scale)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154591",
+   "title": "[MSSQL-Inv-UI-Options-0014] Verify AG Name Required",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154592",
+   "title": "[MSSQL-Inv-UI-Options-0016] Verify AG Name Default State",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154593",
+   "title": "[MSSQL-Inv-UI-Options-0018] Verify AG Name Tooltip",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expected text not stated; spec 0018 wording differs from UI tooltip in places; AG type unspecified (spec 0018 = Always On)"
+  },
+  {
+   "key": "NJM-154594",
+   "title": "[MSSQL-Inv-UI-Options-0020] Verify AG Name Text Compliance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154595",
+   "title": "[MSSQL-Inv-UI-Options-0022-5-1] Verify SQL Username Required - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154596",
+   "title": "[MSSQL-Inv-UI-Options-0022-6-1] Verify SQL Username Default State - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154597",
+   "title": "[MSSQL-Inv-UI-Options-0022-1] Verify SQL Username Visibility - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154598",
+   "title": "[MSSQL-Inv-UI-Options-0022-7-1] Verify SQL Username Text Support (Unicode/Special)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: '<unicode-special-user>' undefined; no Type selection step (default AG); 'no restrictions' rule source missing in spec"
+  },
+  {
+   "key": "NJM-154599",
+   "title": "[MSSQL-Inv-UI-Options-0022-7-2] Verify SQL Username Length Limit",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154600",
+   "title": "[MSSQL-Inv-UI-Options-0022-7-3] Verify SQL Username Space Validation",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154601",
+   "title": "[MSSQL-Inv-UI-Options-0022-7-4] Verify SQL Username Case Insensitivity",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154602",
+   "title": "[MSSQL-Inv-UI-Options-0023-5-1] Verify SQL Password is Not Required - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Title 'Not Required' vs DESC/spec 0023-5-1 'required'; Observed UI does not flag SQL password -> assert Observed; no Type selection step"
+  },
+  {
+   "key": "NJM-154603",
+   "title": "[MSSQL-Inv-UI-Options-0023-6-1] Verify SQL Password Default State - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154604",
+   "title": "[MSSQL-Inv-UI-Options-0023-1] Verify SQL Password Visibility - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154605",
+   "title": "[MSSQL-Inv-UI-Options-0023-6-7-1] Verify SQL Password Text Support & Length",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154606",
+   "title": "[MSSQL-Inv-UI-Options-0023-6-7-2] Verify SQL Password Case Sensitivity",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154607",
+   "title": "[MSSQL-Inv-UI-Options-0023-6-7-3] Verify SQL Password Masking (Privacy)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154608",
+   "title": "[MSSQL-Inv-UI-Options-0023-6-7-4] Verify SQL Password field not have Eye Toggle",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154609",
+   "title": "[MSSQL-Inv-UI-Options-0023-6-7-1-TC02] Verify Password Edit State (Not Loaded)",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154610",
+   "title": "[MSSQL-Inv-UI-Options-0023-6-7-1-TC03] Verify Password Fake Display on Edit",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154611",
+   "title": "[MSSQL-Inv-UI-Options-0024] Verify Field Highlight on Error",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154612",
+   "title": "[MSSQL-Inv-UI-Options-0025-1] Verify Finish Initiates Discovery - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154613",
+   "title": "Verify Finish Initiates Connection",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154614",
+   "title": "[MSSQL-Inv-UI-Options-0026-1] Verify Discovery Fails on Connection Fail - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expected 'instance is not added' vs Observed: greyed 'Failed' row stays until Cancel; error via row menu Show error, no pop-up"
+  },
+  {
+   "key": "NJM-154615",
+   "title": "[MSSQL-Inv-UI-Options-0027] Verify Release Version Check",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expected describes an internal check; only its outcome is observable; path/type selection outdated"
+  },
+  {
+   "key": "NJM-154616",
+   "title": "[MSSQL-Inv-UI-Options-0028-1] Verify Unsupported Old Version Block - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "Old SQL host",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154617",
+   "title": "[MSSQL-Inv-UI-Options-0030-1] Verify Unsupported Old Version Message - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "Old SQL host",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154618",
+   "title": "[MSSQL-Inv-UI-Options-0031-1-TC01] Verify Unsupported New Version Confirmation - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-154619",
+   "title": "[MSSQL-Inv-UI-Options-0031-1-TC02] Verify Unsupported New Version Message - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-154620",
+   "title": "[MSSQL-Inv-UI-Options-0031-1-TC03] Verify New Version Buttons - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-154621",
+   "title": "[MSSQL-Inv-UI-Options-0031-1-1] Verify New Version Proceed Action - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-154622",
+   "title": "[MSSQL-Inv-UI-Options-0031-1-2] Verify New Version Cancel Action - Microsoft SQL Server instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-154623",
+   "title": "[DBM-Inv-UI-Table-0001] Verify Inventory Table UI (Figma)",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P4",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: headers, row cells populated, no truncation, baseline comparison of the current UI. Not verified: match to the Figma design.",
+   "notVerified": "Spacing, styling and icon design against Figma."
+  },
+  {
+   "key": "NJM-154624",
+   "title": "[DBM-Inv-UI-Table-0002] Verify Standard Table Behaviors",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154625",
+   "title": "[DBM-Inv-UI-Table-0003] Verify Inventory Items Column Format",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154626",
+   "title": "[DBM-Inv-UI-Table-0004] Verify Item Type Column Display",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154627",
+   "title": "[DBM-Inv-UI-Table-0005] Verify Details Column (DB Count)",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154628",
+   "title": "[DBM-Inv-UI-Table-0006] Verify Details Column Singular Logic",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154629",
+   "title": "[DBM-Inv-UI-Table-0007] Verify Details Column Plural Logic",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154630",
+   "title": "[MSSQL-Inv-UI-Table-0001-1] Verify Icon for SQL Instance",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: icon present and equal to the recorded current-UI icon for instances. Not verified: identity with the designed icon SQLD001 and its states.",
+   "notVerified": "That the icon is the designed \"SQLD001\"; stateful variants (no design asset available to code)."
+  },
+  {
+   "key": "NJM-154631",
+   "title": "[MSSQL-Inv-UI-Table-0002-1] Verify Icon for Failover Cluster",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154632",
+   "title": "[MSSQL-Inv-UI-Table-0003-1] Verify Icon for Always On AG",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: icon present and equal to the recorded current-UI icon for Always On AGs. Not verified: identity with the designed icon SQLD002.",
+   "notVerified": "That the icon is the designed \"SQLD002\"; the case expects it to differ from the Read-Scale AG icon but the spec assigns both the same icon, so only the current UI is asserted."
+  },
+  {
+   "key": "NJM-154633",
+   "title": "[MSSQL-Inv-UI-Table-0004-1] Verify Icon for Read-Scale AG",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: icon present and equal to the recorded current-UI icon for Read-Scale AGs. Not verified: identity with the designed icon SQLD002.",
+   "notVerified": "That the icon is the designed \"SQLD002\"; distinctness from the Always On AG icon is asserted only if the current UI differs."
+  },
+  {
+   "key": "NJM-154634",
+   "title": "[DBM-Inv-UI-Details-0001] Verify Application Details UI (Figma)",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P4",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: header, General information, Instance details and database list present and readable; baseline comparison. Not verified: match to the Figma design.",
+   "notVerified": "Match to Figma; a \"top summary bar\" with count widgets (only the status badge exists)."
+  },
+  {
+   "key": "NJM-154635",
+   "title": "[DBM-Inv-UI-Details-0002] Verify General Inventory Details Behavior",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154636",
+   "title": "[DBM-Inv-UI-Details-0003] Verify Summary Bar Layout",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P4",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: status badge present and fully visible; baseline comparison. Not verified: X Databases / X Inaccessible widgets (not shown) and height/color/font rules.",
+   "notVerified": "The \"X Databases\" and \"X Inaccessible\" count widgets (not displayed by NBR 11.2.1); height, color and font against the \"common UI requirements\" (no reference values exist)."
+  },
+  {
+   "key": "NJM-154637",
+   "title": "[DBM-Inv-UI-Details-0004] Verify 'X Issues' Count Accuracy",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154638",
+   "title": "[DBM-Inv-UI-Details-0005] Verify 'X Issues' Button Behavior",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154639",
+   "title": "[DBM-Inv-UI-Details-0006] Verify 'X Databases' Count Accuracy",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154640",
+   "title": "[DBM-Inv-UI-Details-0007] Verify 'X Inaccessible' Count Accuracy",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154641",
+   "title": "[DBM-Inv-UI-Details-0008] Verify General Info - Hostname",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154642",
+   "title": "[DBM-Inv-UI-Details-0009] Verify General Info - Type",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: case expects 'Microsoft SQL Server'; spec and UI show the item type ('Microsoft SQL Server instance' etc.); path is Settings > Inventory"
+  },
+  {
+   "key": "NJM-154643",
+   "title": "[DBM-Inv-UI-Details-0010] Verify General Info - Operating System",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154644",
+   "title": "[DBM-Inv-UI-Details-0011] Verify App Details - Total Databases",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154645",
+   "title": "[DBM-Inv-UI-Details-0012] Verify Databases Widget List Content",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: 'X Databases' summary value not observed - compare with Total databases; path is Settings > Inventory"
+  },
+  {
+   "key": "NJM-154646",
+   "title": "[DBM-Inv-UI-Details-0013] Verify Databases Widget Format (Icon+Name)",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: icon-then-name format, names correct and untruncated, icon equal to the recorded current-UI icon. Not verified: identity with the designed icon SQLD003.",
+   "notVerified": "That the database icon is the designed \"SQLD003\" and its stateful variants."
+  },
+  {
+   "key": "NJM-154647",
+   "title": "[MSSQL-Inv-UI-Details-instance-0001] Verify Instance UI Layout",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P3",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: instance sections present, no cluster/AG sections, baseline comparison. Not verified: match to the Figma design.",
+   "notVerified": "Match to Figma."
+  },
+  {
+   "key": "NJM-154648",
+   "title": "[MSSQL-Inv-UI-Details-cluster-0001] Verify FCI UI Layout",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P4",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154649",
+   "title": "[MSSQL-Inv-UI-AO-0001] Verify Always On AG UI Layout",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P3",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: sections, AG name, counts, baseline comparison. Not verified: Figma match and replica list/roles (not shown by NBR).",
+   "notVerified": "Match to Figma; the list of availability replicas with roles (not displayed). Replica roles and a replica list are not exposed in the UI and are not verified."
+  },
+  {
+   "key": "NJM-154650",
+   "title": "[MSSQL-Inv-UI-Details-RS-0001] Verify Read-Scale AG UI Layout",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P3",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: sections, AG name, counts, baseline comparison. Not verified: Figma match and replica list (not shown by NBR).",
+   "notVerified": "Match to Figma; the list of replicas (not displayed). Replica roles and a replica list are not exposed in the UI and are not verified."
+  },
+  {
+   "key": "NJM-154651",
+   "title": "[MSSQL-Inv-UI-Details-instance-0003] Verify Title Icon for Instance",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: title icon present and equal to the recorded current-UI icon for instances. Not verified: match to the Figma icon / SQLD001.",
+   "notVerified": "Comparison with the Figma icon; identity with the designed \"SQLD001\"."
+  },
+  {
+   "key": "NJM-154652",
+   "title": "[MSSQL-Inv-UI-Details-cluster-0003] Verify Title Icon for FCI",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154653",
+   "title": "[MSSQL-Inv-UI-AO-0003] Verify Title Icon for Always On AG",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: title icon present and equal to the recorded current-UI icon for Always On AGs. Not verified: match to the Figma icon / SQLD002.",
+   "notVerified": "Comparison with the Figma icon; identity with the designed \"SQLD002\"."
+  },
+  {
+   "key": "NJM-154654",
+   "title": "[MSSQL-Inv-UI-Details-RS-0003] Verify Title Icon for Read-Scale AG",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: title icon present and equal to the recorded current-UI icon for Read-Scale AGs. Not verified: match to the Figma icon / SQLD002.",
+   "notVerified": "Comparison with the Figma icon; identity with the designed \"SQLD002\"."
+  },
+  {
+   "key": "NJM-154655",
+   "title": "[MSSQL-Inv-UI-Details-instance-0004] Verify Instance Details Widget (Instance)",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: edition expected but no SQL edition is displayed; 'visual defects' read as overflow/overlap checks; path is Settings > Inventory"
+  },
+  {
+   "key": "NJM-154656",
+   "title": "[MSSQL-Inv-UI-Details-cluster-0004] Verify Instance Details Widget (FCI)",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154657",
+   "title": "[MSSQL-Inv-UI-Details-0012] Verify AG Details Widget (Always On)",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P3",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: AG name, database count, host count and SQL version shown for the Always On AG. Not verified (not shown by NBR): replica list, replica roles, AG Details summary-bar widget.",
+   "notVerified": "A separate \"AG Details widget in the summary bar\", each replica with its role (primary/secondary), and replica counts per role: none is displayed (the details are in the \"Instance details\" card). Replica roles and a replica list are not exposed in the UI and are not verified."
+  },
+  {
+   "key": "NJM-154658",
+   "title": "[MSSQL-Inv-UI-Details-RS-0004] Verify AG Details Widget (Read-Scale)",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P3",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: AG name, database count and SQL version shown for the Read-Scale AG. Not verified (not shown by NBR): replica list, replica roles.",
+   "notVerified": "A separate AG Details widget, each replica with its role, replica counts: not displayed. Replica roles and a replica list are not exposed in the UI and are not verified."
+  },
+  {
+   "key": "NJM-154659",
+   "title": "[MSSQL-Inv-UI-Details-instance-0005] Verify Instance Name Field Presence",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154660",
+   "title": "[MSSQL-Inv-UI-Details-instance-0006] Verify Instance Name Field Value",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154661",
+   "title": "[MSSQL-Inv-UI-Details-0016] Verify AG Name Field Presence",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154662",
+   "title": "[MSSQL-Inv-UI-Details-0016-1] Verify AG Name Field Value",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154663",
+   "title": "[MSSQL-Inv-UI-Details-instance-0007] Verify SQL Version Field Presence",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-154664",
+   "title": "[MSSQL-Inv-UI-Details-instance-0008] Verify SQL Version Discovery",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: UI shows a build number, not '2019/2022'; edition recorded in step 2 but not displayed; path is Settings > Inventory"
+  },
+  {
+   "key": "NJM-154665",
+   "title": "[MSSQL-Inv-UI-Details-instance-0009] Verify Database Icon Asset",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: summary requires SQLD003 identity but the expected result only checks the icon renders; no expand step needed (list shown below)"
+  },
+  {
+   "key": "NJM-154666",
+   "title": "[MSSQL-Inv-UI-Platform-0001-TC04] Verify License Violation Tooltip",
+   "area": "Inventory/Step 1 - Platform",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "License state",
+   "priority": "P4",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157703",
+   "title": "Verify auto-install of agent on SQL Instance (Ref: MSSQL-Disc-0001-1)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157704",
+   "title": "Verify auto-install of agent on Failover Cluster (Ref: MSSQL-Disc-0001-2)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157705",
+   "title": "Verify auto-install of agent on Always On AG (Ref: MSSQL-Disc-0001-3)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P3",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: agent installed and running on every host NBR lists for the AG; databases discovered. Not verified: secondary-replica behavior and replica roles (not exposed; lab AG has a single replica).",
+   "notVerified": "Installation on a secondary replica beyond the hosts NBR reports (lab AG 10.10.36.6 has one replica, so only that host is checked). Replica roles are not verified. Needs the agent to be uninstalled first (Remove option \"uninstall transporter\") on a dedicated host."
+  },
+  {
+   "key": "NJM-157706",
+   "title": "Verify auto-install of agent on Read-Scale AG (Ref: MSSQL-Disc-0001-4)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P3",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: agent installed and running on every host NBR lists for the Read-Scale AG; databases discovered. Not verified: secondary-replica behavior and replica roles (not exposed).",
+   "notVerified": "Installation on secondary replicas that NBR does not list (replica hosts of 10.10.33.141 are unconfirmed). Replica roles and a replica list are not exposed in the UI and are not verified."
+  },
+  {
+   "key": "NJM-157707",
+   "title": "Verify reuse of existing agent on SQL Instance (Ref: MSSQL-Disc-0002-1)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157708",
+   "title": "Verify reuse of existing agent on Failover Cluster (Ref: MSSQL-Disc-0002-2)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157709",
+   "title": "Verify reuse of existing agent on Always On AG (Ref: MSSQL-Disc-0002-3)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P3",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: existing agent reused, no re-install, no duplicate node. Not verified: agent start time (product may restart the service) and secondary replicas.",
+   "notVerified": "\"Agent start time unchanged\": the product was observed to restart the agent service when the node had been removed before the re-add, so a restart is not asserted. Secondary-replica reuse (lab AG has one replica). Replica roles and a replica list are not exposed in the UI and are not verified."
+  },
+  {
+   "key": "NJM-157710",
+   "title": "Verify reuse of existing agent on Read-Scale AG (Ref: MSSQL-Disc-0002-4)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P3",
+   "assertionScope": "part-not-verified",
+   "scopeLine": "Verified: existing agent reused, no re-install, no duplicate node. Not verified: agent start time and secondary replicas (not exposed).",
+   "notVerified": "\"Agent start time unchanged\" (service restart observed in some re-add cases, not asserted); replica hosts of 10.10.33.141 are unconfirmed so only hosts NBR lists are checked. Replica roles and a replica list are not exposed in the UI and are not verified."
+  },
+  {
+   "key": "NJM-157711",
+   "title": "Verify error on wrong password for Instance (Ref: MSSQL-Disc-0007-1)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Error not in wizard: it closes, row shows Failed, text via Show error; item stays listed as Failed until Cancel (case: NOT added); spec Disc-0007 message blank"
+  },
+  {
+   "key": "NJM-157712",
+   "title": "Verify error on wrong password for FCI (Ref: MSSQL-Disc-0007-2)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157713",
+   "title": "Verify error on wrong password for AAG (Ref: MSSQL-Disc-0007-3)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157714",
+   "title": "Verify error on wrong password for Read-Scale (Ref: MSSQL-Disc-0007-4)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157715",
+   "title": "Verify error on insufficient rights for Instance (Ref: MSSQL-Disc-0012-1)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P4",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157716",
+   "title": "Verify error on insufficient rights for FCI (Ref: MSSQL-Disc-0012-2)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P4",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157717",
+   "title": "Verify error on insufficient rights for AAG (Ref: MSSQL-Disc-0012-3)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P4",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157718",
+   "title": "Verify error on insufficient rights for Read-Scale (Ref: MSSQL-Disc-0012-4)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P4",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157719",
+   "title": "Support SIMPLE recovery backup on Instance (Ref: MSSQL-Disc-0008-1)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expects the recovery model shown in NBR; NBR UI shows no recovery model (Observed item page) - assert DB discovered instead"
+  },
+  {
+   "key": "NJM-157720",
+   "title": "Support SIMPLE recovery backup on FCI (Ref: MSSQL-Disc-0008-2)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157721",
+   "title": "Verify not support SIMPLE recovery backup on AAG (Ref: MSSQL-Disc-0008-3)",
+   "area": "Discovery",
+   "scope": "excluded",
+   "exclusionReason": "Impossible precondition: SQL Server does not allow a SIMPLE-recovery database in an availability group. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-157722",
+   "title": "Verify not support SIMPLE recovery backup on Read-Scale (Ref: MSSQL-Disc-0008-4)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P4",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expected result is a SQL Server rule; steps mention a backup job that cannot exist"
+  },
+  {
+   "key": "NJM-157723",
+   "title": "Support FULL recovery backup on Instance (Ref: MSSQL-Disc-0009-1)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expects the recovery model shown in NBR; NBR UI shows no recovery model (Observed item page) - assert DB discovered instead"
+  },
+  {
+   "key": "NJM-157724",
+   "title": "Support FULL recovery backup on FCI (Ref: MSSQL-Disc-0009-2)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157725",
+   "title": "Support FULL recovery backup on AAG (Ref: MSSQL-Disc-0009-3)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expects the recovery model shown in NBR; NBR UI shows no recovery model (Observed item page) - assert DB discovered instead"
+  },
+  {
+   "key": "NJM-157726",
+   "title": "Support FULL recovery backup on Read-Scale (Ref: MSSQL-Disc-0009-4)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expects the recovery model shown in NBR; NBR UI shows no recovery model (Observed item page) - assert DB discovered instead"
+  },
+  {
+   "key": "NJM-157727",
+   "title": "Support BULK-LOGGED backup on Instance (Ref: MSSQL-Disc-0010-1)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expects the recovery model shown in NBR; NBR UI shows no recovery model (Observed item page) - assert DB discovered instead"
+  },
+  {
+   "key": "NJM-157728",
+   "title": "Support BULK-LOGGED backup on FCI (Ref: MSSQL-Disc-0010-2)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157729",
+   "title": "Verify not support BULK-LOGGED backup on AAG (Ref: MSSQL-Disc-0010-3)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P4",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expected result is a SQL Server rule; steps mention a backup job that cannot exist"
+  },
+  {
+   "key": "NJM-157730",
+   "title": "Verify not support BULK-LOGGED backup on Read-Scale (Ref: MSSQL-Disc-0010-4)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P4",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Expected result is a SQL Server rule; steps mention a backup job that cannot exist"
+  },
+  {
+   "key": "NJM-157731",
+   "title": "Prevent duplicate entry for Instance (Ref: MSSQL-Disc-0011-1)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157732",
+   "title": "Prevent duplicate entry for FCI (Ref: MSSQL-Disc-0011-2)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157733",
+   "title": "Prevent duplicate entry for AAG (Ref: MSSQL-Disc-0011-3)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157734",
+   "title": "Prevent duplicate entry for Read-Scale (Ref: MSSQL-Disc-0011-4)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157735",
+   "title": "Verify error420 when credentials have insufficient permission on Standalone Instance (Ref: MSSQL-Disc-0012-1)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: 'error 420' is an internal id (spec-alarms: error420 = incorrect creds, error421 = insufficient perms); UI shows combined text via Failed row > Show error, not in wizard"
+  },
+  {
+   "key": "NJM-157736",
+   "title": "Verify error420 when credentials have insufficient permission on Failover Cluster (Ref: MSSQL-Disc-0012-2)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157737",
+   "title": "Verify error420 when credentials have insufficient permission on Always On AG (Ref: MSSQL-Disc-0012-3)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: 'error 420' internal id (error420 = incorrect, error421 = insufficient perms in spec-alarms); error via Failed row > Show error; listener vs WSFC host + AG name"
+  },
+  {
+   "key": "NJM-157738",
+   "title": "Verify error420 when credentials have insufficient permission on Read-Scale AG (Ref: MSSQL-Disc-0012-4)",
+   "area": "Discovery",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: 'error 420' internal id (error420 = incorrect, error421 = insufficient perms in spec-alarms); error via Failed row > Show error; RS-AG has no listener"
+  },
+  {
+   "key": "NJM-157741",
+   "title": "Verify removing SQL Server Instance from Inventory (Ref: MSSQL-Inv-General-0001-2)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157742",
+   "title": "Verify editing SQL Failover Cluster details (Ref: MSSQL-Inv-General-0002-1)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157743",
+   "title": "Verify removing SQL Failover Cluster from Inventory (Ref: MSSQL-Inv-General-0002-2)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157744",
+   "title": "Verify editing Always On Availability Group details (Ref: MSSQL-Inv-General-0003-1)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157745",
+   "title": "Verify removing Always On Availability Group from Inventory (Ref: MSSQL-Inv-General-0003-2)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157746",
+   "title": "Verify editing Read-Scale AG details (Ref: MSSQL-Inv-General-0004-1)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157747",
+   "title": "Verify removing Read-Scale AG from Inventory (Ref: MSSQL-Inv-General-0004-2)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157748",
+   "title": "Verify child databases are discovered for FCI (Ref: MSSQL-Inv-General-0005-2)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157749",
+   "title": "Verify child databases are discovered for AAG (Ref: MSSQL-Inv-General-0005-3)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: AGs hold no system DBs; lab Basic AGs hold 1 DB each (precondition 'several' not met); listener/instance fields differ"
+  },
+  {
+   "key": "NJM-157750",
+   "title": "Verify child databases are discovered for Read-Scale AG (Ref: MSSQL-Inv-General-0005-4)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: AGs hold no system DBs (case expects system + user DBs); no instance field for RS-AG"
+  },
+  {
+   "key": "NJM-157751",
+   "title": "Verify new databases are detected on update/refresh for FCI (Ref: MSSQL-Inv-General-0006-2)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157752",
+   "title": "Verify new databases are detected on update/refresh for AAG (Ref: MSSQL-Inv-General-0006-3)",
+   "area": "Inventory/General requirements",
+   "scope": "excluded",
+   "exclusionReason": "A new database cannot join the lab Basic AG (one database per AG), so the scenario cannot be set up. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-157753",
+   "title": "Verify new databases are detected on update/refresh for Read-Scale (Ref: MSSQL-Inv-General-0006-4)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157754",
+   "title": "Verify child databases are removed when parent FCI is removed (Ref: MSSQL-Inv-General-0007-2)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157755",
+   "title": "Verify child databases are removed when parent AAG is removed (Ref: MSSQL-Inv-General-0007-3)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-157756",
+   "title": "Verify child databases are removed when parent Read-Scale is removed (Ref: MSSQL-Inv-General-0007-4)",
+   "area": "Inventory/General requirements",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159271",
+   "title": "[MSSQL-Inv-UI-Options-0002-2] Verify Type Dropdown Content include Microsoft SQL Server failover cluster instance.",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159273",
+   "title": "[MSSQL-Inv-UI-Options-0002-3] Verify Type Dropdown Content include Microsoft SQL Server Always On availability group.",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159274",
+   "title": "[MSSQL-Inv-UI-Options-0002-4] Verify Type Dropdown Content include Microsoft SQL Server Read-Scale availability group.",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159678",
+   "title": "[MSSQL-Inv-UI-Options-0006] Verify Instance Name Required",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159679",
+   "title": "[MSSQL-Inv-UI-Options-0008] Verify Instance Name Default State",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159680",
+   "title": "[MSSQL-Inv-UI-Options-0011] Verify Instance Name Text Compliance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159681",
+   "title": "[MSSQL-Inv-UI-Options-0015] Verify AG Name Required",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159682",
+   "title": "[MSSQL-Inv-UI-Options-0017] Verify AG Name Default State",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159683",
+   "title": "[MSSQL-Inv-UI-Options-0019] Verify AG Name Tooltip",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: Spec maps key to 0019 (RS-AG; UI RS tooltip says 'clusterless AG') but steps use Always On -> duplicates NJM-154593; expected text not stated"
+  },
+  {
+   "key": "NJM-159684",
+   "title": "[MSSQL-Inv-UI-Options-0021] Verify AG Name Text Compliance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "investigate-first",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159685",
+   "title": "[MSSQL-Inv-UI-Options-0022-2] Verify SQL Username Visibility - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159686",
+   "title": "[MSSQL-Inv-UI-Options-0022-3] Verify SQL Username Visibility - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159687",
+   "title": "[MSSQL-Inv-UI-Options-0022-4] Verify SQL Username Visibility - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159688",
+   "title": "[MSSQL-Inv-UI-Options-0022-5-2] Verify SQL Username Required - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159689",
+   "title": "[MSSQL-Inv-UI-Options-0022-5-3] Verify SQL Username Required - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159690",
+   "title": "[MSSQL-Inv-UI-Options-0022-5-4] Verify SQL Username Required - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159691",
+   "title": "[MSSQL-Inv-UI-Options-0022-6-2] Verify SQL Username Default State - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159692",
+   "title": "[MSSQL-Inv-UI-Options-0022-6-3] Verify SQL Username Default State - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159693",
+   "title": "[MSSQL-Inv-UI-Options-0022-6-4] Verify SQL Username Default State - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159694",
+   "title": "[MSSQL-Inv-UI-Options-0023-2] Verify SQL Password Visibility - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159695",
+   "title": "[MSSQL-Inv-UI-Options-0023-3] Verify SQL Password Visibility - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159696",
+   "title": "[MSSQL-Inv-UI-Options-0023-4] Verify SQL Password Visibility - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159697",
+   "title": "[MSSQL-Inv-UI-Options-0023-5-2] Verify SQL Password is Not Required - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: DESC and spec 0023-5-2 say password required; title/steps and Observed UI say not required - assert UI; nav path differs"
+  },
+  {
+   "key": "NJM-159698",
+   "title": "[MSSQL-Inv-UI-Options-0023-5-3] Verify SQL Password is Not Required - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: DESC/spec say required, title and UI not - assert UI; no 'Step 1 connection details' (Step 1 = Platform); 'red asterisk' marker unverified (UI uses red border)"
+  },
+  {
+   "key": "NJM-159699",
+   "title": "[MSSQL-Inv-UI-Options-0023-5-4] Verify SQL Password is Not Required - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: DESC/spec say required, title and UI not - assert UI; no 'Step 1 connection details' (Step 1 = Platform); 'red asterisk' marker unverified (UI uses red border)"
+  },
+  {
+   "key": "NJM-159700",
+   "title": "[MSSQL-Inv-UI-Options-0023-6-2] Verify SQL Password Default State - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159701",
+   "title": "[MSSQL-Inv-UI-Options-0023-6-3] Verify SQL Password Default State - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159702",
+   "title": "[MSSQL-Inv-UI-Options-0023-6-4] Verify SQL Password Default State - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159703",
+   "title": "[MSSQL-Inv-UI-Options-0032] Verify Field Highlight on Error If any field contains an invalid value",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159704",
+   "title": "[MSSQL-Inv-UI-Options-0025-2] Verify Finish Initiates Discovery - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159705",
+   "title": "[MSSQL-Inv-UI-Options-0025-3] Verify Finish Initiates Discovery - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159706",
+   "title": "[MSSQL-Inv-UI-Options-0025-4] Verify Finish Initiates Discovery - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159707",
+   "title": "[MSSQL-Inv-UI-Options-0026-2] Verify Discovery Fails on Connection Fail - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159708",
+   "title": "[MSSQL-Inv-UI-Options-0026-3] Verify Discovery Fails on Connection Fail - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159709",
+   "title": "[MSSQL-Inv-UI-Options-0026-4] Verify Discovery Fails on Connection Fail - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159710",
+   "title": "[MSSQL-Inv-UI-Options-0028-2] Verify Unsupported Old Version Block - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "Old SQL host",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159711",
+   "title": "[MSSQL-Inv-UI-Options-0028-3] Verify Unsupported Old Version Block - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "Old SQL host",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159712",
+   "title": "[MSSQL-Inv-UI-Options-0028-4] Verify Unsupported Old Version Block - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "Old SQL host",
+   "priority": "P4",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159713",
+   "title": "[MSSQL-Inv-UI-Options-0030-2] Verify Unsupported Old Version Message - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "Old SQL host",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159714",
+   "title": "[MSSQL-Inv-UI-Options-0030-3] Verify Unsupported Old Version Message - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "Old SQL host",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159715",
+   "title": "[MSSQL-Inv-UI-Options-0030-4] Verify Unsupported Old Version Message - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "Old SQL host",
+   "priority": "P4",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159716",
+   "title": "[MSSQL-Inv-UI-Options-0031-2-TC01] Verify Unsupported New Version Confirmation - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159717",
+   "title": "[MSSQL-Inv-UI-Options-0031-2-TC02] Verify Unsupported New Version Message - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159718",
+   "title": "[MSSQL-Inv-UI-Options-0031-2-TC03] Verify New Version Buttons - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159719",
+   "title": "[MSSQL-Inv-UI-Options-0031-2-1] Verify New Version Proceed Action - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159720",
+   "title": "[MSSQL-Inv-UI-Options-0031-2-2] Verify New Version Cancel Action - Microsoft SQL Server failover cluster instance",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159721",
+   "title": "[MSSQL-Inv-UI-Options-0031-3-TC01] Verify Unsupported New Version Confirmation - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159722",
+   "title": "[MSSQL-Inv-UI-Options-0031-3-TC02] Verify Unsupported New Version Message - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159723",
+   "title": "[MSSQL-Inv-UI-Options-0031-3-TC03] Verify New Version Buttons - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159724",
+   "title": "[MSSQL-Inv-UI-Options-0031-3-1] Verify New Version Proceed Action - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159725",
+   "title": "[MSSQL-Inv-UI-Options-0031-3-2] Verify New Version Cancel Action - Microsoft SQL Server Always On availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159726",
+   "title": "[MSSQL-Inv-UI-Options-0031-4-TC01] Verify Unsupported New Version Confirmation - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159727",
+   "title": "[MSSQL-Inv-UI-Options-0031-4-TC02] Verify Unsupported New Version Message - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159728",
+   "title": "[MSSQL-Inv-UI-Options-0031-4-TC03] Verify New Version Buttons - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159729",
+   "title": "[MSSQL-Inv-UI-Options-0031-4-1] Verify New Version Proceed Action - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159730",
+   "title": "[MSSQL-Inv-UI-Options-0031-4-2] Verify New Version Cancel Action - Microsoft SQL Server Read-Scale availability group",
+   "area": "Inventory/Step 2 - Options",
+   "scope": "excluded",
+   "exclusionReason": "Needs a SQL Server newer than 2025 (newest supported), which does not exist; only a developer test hook could create the state. Excluded by owner decision 2026-10-09."
+  },
+  {
+   "key": "NJM-159731",
+   "title": "[MSSQL-Inv-UI-Table-0001-2] Verify Item Type column for ''Microsoft SQL Server instance\" is ''Microsoft SQL Server instance\"",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159732",
+   "title": "[MSSQL-Inv-UI-Table-0002-2] Verify Item Type column for '''Microsoft SQL Server failover cluster instance'\" is '''Microsoft SQL Server failover cluster instance'\"",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159733",
+   "title": "[MSSQL-Inv-UI-Table-0003-2] Verify Item Type column for 'Microsoft SQL Server Always On availability group' is 'Microsoft SQL Server Always On availability group'",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159734",
+   "title": "[MSSQL-Inv-UI-Table-0004-2] Verify Item Type column for 'Microsoft SQL Server Read-Scale availability group' is 'Microsoft SQL Server Read-Scale availability group'",
+   "area": "1.2. Inventory table",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159735",
+   "title": "[MSSQL-Inv-UI-Details-cluster-0005] Verify Instance Name Field Presence",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159736",
+   "title": "[MSSQL-Inv-UI-Details-cluster-0006] Verify Instance Name Field Value",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159737",
+   "title": "[MSSQL-Inv-UI-Details-cluster-0007] Verify SQL Version Field Presence",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159738",
+   "title": "[MSSQL-Inv-UI-Details-cluster-0008] Verify SQL Version Discovery",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159739",
+   "title": "[MSSQL-Inv-UI-Details-cluster-0009] Verify Database Icon Asset",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "waits-for-environment",
+   "environment": "FCI repair",
+   "priority": "P3",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159740",
+   "title": "[MSSQL-Inv-UI-AO-0005] Verify AG Name Field Presence",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159741",
+   "title": "[MSSQL-Inv-UI-AO-0006] Verify AG Name Field Value",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159742",
+   "title": "[MSSQL-Inv-UI-AO-0007] Verify SQL Version Field Presence",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159743",
+   "title": "[MSSQL-Inv-UI-AO-0008] Verify SQL Version Discovery",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: UI shows a build number, not '2019/2022'; edition not displayed; 2+ replicas precondition not in lab"
+  },
+  {
+   "key": "NJM-159744",
+   "title": "[MSSQL-Inv-UI-AO-0009] Verify Database Icon Asset",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: summary requires SQLD003 identity but the expected result only checks the icon renders; no expand step needed"
+  },
+  {
+   "key": "NJM-159745",
+   "title": "[MSSQL-Inv-UI-Details-RS-0006] Verify AG Name Field Value",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159746",
+   "title": "[MSSQL-Inv-UI-Details-RS-0007] Verify SQL Version Field Presence",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  },
+  {
+   "key": "NJM-159747",
+   "title": "[MSSQL-Inv-UI-Details-RS-0008] Verify SQL Version Discovery",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P2",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: UI shows a build number (17.0.1000.7), not '2019/2022'; edition recorded but not displayed; path is Settings > Inventory"
+  },
+  {
+   "key": "NJM-159748",
+   "title": "[MSSQL-Inv-UI-Details-RS-0009] Verify Database Icon Asset",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "follows-current-ui",
+   "scopeLine": "Adjusted to the current NBR UI: summary requires SQLD003 identity but the expected result only checks the icon renders; no expand step needed"
+  },
+  {
+   "key": "NJM-159749",
+   "title": "[MSSQL-Inv-UI-Details-RS-0005] Verify AG Name Field Presence",
+   "area": "1.3. Inventory Item Details",
+   "scope": "in-scope",
+   "readiness": "ready",
+   "priority": "P1",
+   "assertionScope": "as-written",
+   "scopeLine": "Verified as written in the case. Navigation follows the current NBR UI."
+  }
+ ]
+}

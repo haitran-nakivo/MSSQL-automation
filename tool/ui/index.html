@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NAKIVO Automation Tool</title>
+<style>
+:root {
+  --bg: #f4f5f2; --surface: #ffffff; --ink: #1c2421; --muted: #5d6964; --line: #dde2de; --soft: #eef1ee; --accent: #23569e;
+  --ok: #2d7a4c; --warn: #a8701a; --bad: #b03f3a; --ok-bg: #e4f2e9; --warn-bg: #f8eedc; --bad-bg: #f8e4e2;
+}
+@media (prefers-color-scheme: dark) { :root { --bg: #111513; --surface: #181e1b; --ink: #e4eae6; --muted: #9aa69f; --line: #2a332f; --soft: #1f2622; --accent: #86b2f2; --ok: #67c98d; --warn: #e2aa52; --bad: #ef8079; --ok-bg: #1c3427; --warn-bg: #3a2d16; --bad-bg: #3d1f1d; color-scheme: dark } }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 14px/1.5 "Segoe UI", system-ui, sans-serif; margin: 0 }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px 56px; display: grid; gap: 18px }
+h1 { font-size: 22px; margin: 0 } h2 { font-size: 15px; margin: 0 }
+.muted { color: var(--muted) } .mono { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 12px; min-width: 0 }
+.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end }
+label { display: grid; gap: 4px; font-size: 12px; color: var(--muted) }
+input, select { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 7px 9px; min-width: 0 }
+input[type=checkbox] { width: auto }
+button { font: inherit; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: #fff; padding: 7px 16px; cursor: pointer }
+button.ghost { background: transparent; color: var(--accent) }
+button:disabled { opacity: .45; cursor: not-allowed }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px }
+.case { border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: grid; gap: 8px }
+.tablebox { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px }
+table { border-collapse: collapse; width: 100%; background: var(--surface) }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); vertical-align: top }
+th { background: var(--soft); font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); white-space: nowrap }
+tr:last-child td { border-bottom: 0 }
+tr.pick { cursor: pointer } tr.pick:hover td { background: var(--soft) }
+.pill { display: inline-block; font: 600 11px/1 ui-monospace, Consolas, monospace; padding: 4px 7px; border-radius: 999px; white-space: nowrap }
+.p-PASS { color: var(--ok); background: var(--ok-bg) } .p-FAIL, .p-ABORTED { color: var(--bad); background: var(--bad-bg) }
+.p-info { color: var(--warn); background: var(--warn-bg) }
+.banner { padding: 10px 12px; border-left: 3px solid var(--warn); background: var(--warn-bg); border-radius: 0 6px 6px 0 }
+.banner.err { border-color: var(--bad); background: var(--bad-bg) }
+pre { background: var(--soft); border: 1px solid var(--line); border-radius: 6px; padding: 10px; margin: 0; max-height: 260px; overflow: auto; font-size: 12px; white-space: pre-wrap; overflow-wrap: anywhere }
+dl { display: grid; grid-template-columns: minmax(110px, 170px) 1fr; gap: 4px 12px; margin: 0 } dt { color: var(--muted) } dd { margin: 0; overflow-wrap: anywhere }
+video { max-width: 100%; border-radius: 6px; background: #000 }
+.shots { display: flex; flex-wrap: wrap; gap: 8px } .shots img { height: 90px; border: 1px solid var(--line); border-radius: 4px }
+details summary { cursor: pointer; font-weight: 600 }
+@media (max-width: 560px) { dl { grid-template-columns: 1fr } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>NAKIVO Automation Tool</h1>
+    <p class="muted">Pick a case and run it. The test is plain Playwright code: no AI takes part while it runs. Nothing is sent to Jira or Xray from this page.</p>
+  </header>
+
+  <div id="notices"></div>
+
+  <section class="panel" aria-labelledby="h-cases">
+    <h2 id="h-cases">1. Cases you can run</h2>
+    <div class="row">
+      <label for="build">Build (optional)<input id="build" placeholder="e.g. 11.2.1.112232"></label>
+      <label for="fixVersion">Fix Version (optional)<input id="fixVersion"></label>
+      <label for="tenancy">Tenancy (optional)<input id="tenancy"></label>
+      <label for="headed"><span><input id="headed" type="checkbox" checked> Show the browser</span></label>
+    </div>
+    <div id="cases"><span class="muted">Loading…</span></div>
+  </section>
+
+  <section class="panel" id="resultPanel" hidden aria-labelledby="h-res">
+    <h2 id="h-res">2. Result</h2>
+    <div id="result"></div>
+    <pre id="log" aria-label="Run log"></pre>
+  </section>
+
+  <section class="panel" id="historyPanel" hidden aria-labelledby="h-hist">
+    <h2 id="h-hist">3. Earlier runs <span class="muted" id="histKey"></span></h2>
+    <div class="tablebox"><table>
+      <thead><tr><th>Started</th><th>Result</th><th>Duration</th><th>Folder</th></tr></thead>
+      <tbody id="history"></tbody>
+    </table></div>
+    <p class="muted">Select a row to see its result and video. Nothing is ever deleted from these folders by the tool.</p>
+  </section>
+
+  <details class="panel">
+    <summary>Optional: read a Jira Test Execution (read-only)</summary>
+    <div class="row" style="margin-top:12px">
+      <label for="execKey">Test Execution key<input id="execKey" placeholder="e.g. NJM-183419" autocomplete="off" spellcheck="false"></label>
+      <button id="loadBtn" class="ghost">List its test cases</button>
+    </div>
+    <div id="execInfo" class="muted" style="margin-top:8px"></div>
+    <div class="tablebox" style="margin-top:8px"><table>
+      <thead><tr><th>Case</th><th>Title</th><th>Automation</th><th>Xray status</th><th></th></tr></thead>
+      <tbody id="tests"><tr><td colspan="5" class="muted">Not loaded.</td></tr></tbody>
+    </table></div>
+  </details>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const post = (url, body) => fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-qa-tool': '1' }, body: JSON.stringify(body) }).then(async (r) => { const j = await r.json(); if (!r.ok) throw new Error(j.error || r.statusText); return j; });
+const get = (url) => fetch(url).then(async (r) => { const j = await r.json(); if (!r.ok) throw new Error(j.error || r.statusText); return j; });
+const pill = (status) => `<span class="pill p-${esc(status)}">${esc(status)}</span>`;
+const dur = (ms) => `${Math.floor(ms / 60000)}m ${Math.round(ms / 1000) % 60}s`;
+const fileUrl = (r, name) => `/file?key=${encodeURIComponent(r.key)}&run=${encodeURIComponent(r.runId)}&name=${encodeURIComponent(name)}`;
+let busy = false, pollTimer = null, cases = [];
+
+// settings are remembered in the browser (optional convenience)
+for (const id of ['build', 'fixVersion', 'tenancy']) { try { $(id).value = localStorage.getItem('qa-' + id) || ''; } catch {} $(id).addEventListener('input', () => { try { localStorage.setItem('qa-' + id, $(id).value); } catch {} }); }
+
+async function init() {
+  try {
+    const c = await get('/api/config');
+    const notes = [];
+    if (!c.nakivoBaseUrlSet) notes.push('<div class="banner err">NAKIVO_BASE_URL is missing in .env: a case cannot run.</div>');
+    if (c.registryProblems.length) notes.push(`<div class="banner err"><b>Registry problems</b><br>${c.registryProblems.map(esc).join('<br>')}</div>`);
+    $('notices').innerHTML = notes.join('');
+  } catch (e) { $('notices').innerHTML = `<div class="banner err">${esc(e.message)}</div>`; }
+  await loadCases();
+}
+
+async function loadCases() {
+  const data = await get('/api/cases');
+  cases = data.cases;
+  $('cases').innerHTML = cases.map((c) => `
+    <div class="case">
+      <div class="row"><b class="mono">${esc(c.key)}</b><span>${esc(c.title)}</span></div>
+      <div class="muted">${esc(c.scopeLine || '')}</div>
+      <div class="muted mono">${esc(c.spec || '')}</div>
+      ${c.missingEnv.length ? `<div class="banner err">Missing in .env: ${c.missingEnv.map(esc).join(', ')}</div>` : ''}
+      <div class="row">
+        <button data-run="${esc(c.key)}" ${busy || c.missingEnv.length ? 'disabled' : ''}>Run</button>
+        <button class="ghost" data-hist="${esc(c.key)}">Earlier runs</button>
+        <span>${c.lastRun ? 'Last run here: ' + pill(c.lastRun.status) + ' <span class="muted mono">' + esc(c.lastRun.startedAt.slice(0, 16).replace('T', ' ')) + '</span>' : '<span class="muted">No earlier run found.</span>'}</span>
+      </div>
+    </div>`).join('') || '<span class="muted">No case is implemented yet.</span>';
+}
+
+async function run(caseKey, executionKey, testRunId) {
+  busy = true; loadCases();
+  $('resultPanel').hidden = false; $('result').innerHTML = '<span class="muted">Starting…</span>'; $('log').textContent = '';
+  try {
+    const { jobId } = await post('/api/run', { caseKey, executionKey: executionKey ?? null, testRunId: testRunId ?? null, xrayMode: 'none',
+      settings: { build: $('build').value, fixVersion: $('fixVersion').value, tenancy: $('tenancy').value, headed: $('headed').checked } });
+    poll(jobId, caseKey);
+  } catch (e) { busy = false; loadCases(); $('result').innerHTML = `<div class="banner err">${esc(e.message)}</div>`; }
+}
+
+function poll(jobId, caseKey) {
+  clearInterval(pollTimer);
+  const tick = async () => {
+    try {
+      const job = await get('/api/jobs/' + jobId);
+      $('log').textContent = job.log.join('\n'); $('log').scrollTop = $('log').scrollHeight;
+      if (job.state === 'running') { $('result').innerHTML = `<span class="muted">Running ${esc(caseKey)}… the browser opens on this computer.</span>`; return; }
+      clearInterval(pollTimer); busy = false; loadCases();
+      if (job.result) { showResult(job.result); showHistory(caseKey); } else $('result').innerHTML = `<div class="banner err">Tool error: ${esc(job.error || 'unknown')}</div>`;
+    } catch (e) { clearInterval(pollTimer); busy = false; loadCases(); $('result').innerHTML = `<div class="banner err">${esc(e.message)}</div>`; }
+  };
+  tick(); pollTimer = setInterval(tick, 2000);
+}
+
+function showResult(r) {
+  $('resultPanel').hidden = false;
+  const steps = (r.steps || []).map((s) => `<div>${s.ok ? '✔' : '✘'} ${esc(s.title)}${s.error ? `<div class="muted mono">${esc(s.error)}</div>` : ''}</div>`).join('');
+  const shots = (r.files || []).filter((n) => n.toLowerCase().endsWith('.png')).map((n) => `<a href="${fileUrl(r, n)}" target="_blank" rel="noopener"><img alt="${esc(n)}" src="${fileUrl(r, n)}"></a>`).join('');
+  const video = r.video ? `<video controls preload="metadata" src="${fileUrl(r, r.video)}"></video>` : '<span class="muted">No video was recorded for this run.</span>';
+  const pre = (r.preflight || []).filter((c) => c.status !== 'ok').map((c) => `${esc(c.id)}: ${esc(c.status)} - ${esc(c.detail)}`).join('<br>');
+  $('result').innerHTML = `
+    <div class="row"><b style="font-size:18px">${pill(r.status)} <span class="mono">${esc(r.key)}</span></b><span class="muted">${dur(r.durationMs)}</span><button class="ghost" id="openFolder">Open evidence folder</button></div>
+    <dl>
+      <dt>Title</dt><dd>${esc(r.title || '')}</dd>
+      ${r.status !== 'PASS' ? `<dt>Failed step</dt><dd>${esc(r.failedStep || '-')}</dd><dt>Reason</dt><dd>${esc(r.reason || '-')}</dd>` : ''}
+      ${r.scopeLine ? `<dt>What this verifies</dt><dd>${esc(r.scopeLine)}</dd>` : ''}
+      <dt>Started</dt><dd>${esc(r.startedAt)}</dd>
+      <dt>Evidence folder</dt><dd class="mono">${esc(r.runDir)}</dd>
+      ${pre ? `<dt>Pre-flight notes</dt><dd>${pre}</dd>` : ''}
+      <dt>Steps</dt><dd>${steps || '<span class="muted">none recorded</span>'}</dd>
+      <dt>Video</dt><dd>${video}</dd>
+      <dt>Screenshots</dt><dd><div class="shots">${shots || '<span class="muted">none</span>'}</div></dd>
+    </dl>`;
+  $('openFolder').onclick = () => post('/api/open', { key: r.key, run: r.runId }).catch((e) => alert(e.message));
+  $('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+let runsByKey = {};
+async function showHistory(key) {
+  $('historyPanel').hidden = false; $('histKey').textContent = key;
+  const { runs } = await get('/api/runs/' + encodeURIComponent(key));
+  runsByKey[key] = runs;
+  $('history').innerHTML = runs.map((r, i) => `<tr class="pick" data-i="${i}" data-k="${esc(key)}" tabindex="0"><td class="mono">${esc(r.startedAt.slice(0, 19).replace('T', ' '))}</td><td>${pill(r.status)}</td><td>${dur(r.durationMs)}</td><td class="mono">${esc(r.runId)}</td></tr>`).join('') || '<tr><td colspan="4" class="muted">No earlier runs.</td></tr>';
+}
+
+$('cases').addEventListener('click', (e) => {
+  const r = e.target.closest('button[data-run]'); if (r && !r.disabled) run(r.dataset.run);
+  const h = e.target.closest('button[data-hist]'); if (h) showHistory(h.dataset.hist);
+});
+$('history').addEventListener('click', (e) => { const tr = e.target.closest('tr.pick'); if (tr) showResult(runsByKey[tr.dataset.k][Number(tr.dataset.i)]); });
+$('history').addEventListener('keydown', (e) => { if (e.key === 'Enter') { const tr = e.target.closest('tr.pick'); if (tr) showResult(runsByKey[tr.dataset.k][Number(tr.dataset.i)]); } });
+
+// ---- optional: read a Test Execution from Jira (read-only) and run an implemented case from its list ----
+let execution = null, tests = [];
+async function loadExecution() {
+  const key = $('execKey').value.trim().toUpperCase();
+  $('execInfo').textContent = 'Loading…';
+  try {
+    const data = await get('/api/execution/' + encodeURIComponent(key));
+    execution = data.execution; tests = data.tests;
+    $('execInfo').innerHTML = `<b>${esc(execution.key)}</b> ${esc(execution.summary)} · Fix Version: ${esc(execution.fixVersions.join(', ') || 'none')} · ${tests.length} test cases`;
+    if (!$('fixVersion').value) $('fixVersion').value = execution.fixVersions[0] || '';
+    $('tests').innerHTML = tests.map((t) => `<tr><td class="mono">${esc(t.key)}</td><td>${esc(t.title)}</td><td>${esc(t.case.state)}<br><span class="muted">${esc(t.case.reason)}</span></td><td>${esc(t.status || 'unknown')}</td><td><button data-k="${esc(t.key)}" ${t.case.canExecute && !busy ? '' : 'disabled'}>Run</button></td></tr>`).join('');
+  } catch (e) { $('execInfo').innerHTML = `<span class="banner err">${esc(e.message)}</span>`; }
+}
+$('loadBtn').onclick = loadExecution;
+$('execKey').addEventListener('keydown', (e) => { if (e.key === 'Enter') loadExecution(); });
+$('tests').addEventListener('click', (e) => { const b = e.target.closest('button[data-k]'); if (b && !b.disabled) { const t = tests.find((x) => x.key === b.dataset.k); run(b.dataset.k, execution?.key, t?.runId); } });
+init();
+</script>
+</body>
+</html>
